@@ -26,7 +26,9 @@ const GoogleCallbackPage = () => {
                 localStorage.setItem("refreshToken", refreshToken);
             }
 
-            alert(`${name} 님, 구글 로그인에 성공했습니다!`);
+            window.history.replaceState(null, "", window.location.pathname);
+
+            alert(`${name || "user"} 님, 구글 로그인에 성공했습니다!`);
 
             navigate("/", { replace: true });
         } 

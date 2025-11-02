@@ -1,9 +1,10 @@
-import { useNavigate } from "react-router-dom";
+import { replace, useNavigate } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { LoginFormValues, loginSchema } from "../schema";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import { postSignin } from "../apis/auth";
+import { useEffect } from "react";
 
 const LoginPage = () => {
     const [accessToken, setAccessToken] = useLocalStorage<string | null>('accessToken', null);
@@ -32,6 +33,16 @@ const LoginPage = () => {
     }
     */
 
+    useEffect(() => {
+        const token = localStorage.getItem("accessToken");
+
+        if (token) {
+            alert('이미 로그인 되어 있습니다 !');
+
+            navigate('/', { replace : true });
+        }
+    }, [navigate])
+
     const handleSignin : SubmitHandler<LoginFormValues> = async (data) => {
         try {
             const response = await postSignin({
@@ -47,10 +58,14 @@ const LoginPage = () => {
             navigate('/');
         }
 
-        catch (error : any) {
-            console.log(error);
+        catch (error) {
+            let message = "알 수 없는 에러가 발생하였습니다 !";
 
-            alert(error.response?.data?.message || '로그인 중 오류가 발생했습니다.');
+            if (error instanceof Error) {
+                message = error.message;
+            }
+
+            alert(message);
         }
     };
 
