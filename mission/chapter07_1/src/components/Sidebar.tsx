@@ -5,26 +5,32 @@ import { useMutation } from '@tanstack/react-query';
 import axios, { AxiosError } from 'axios';
 import ConfirmModal from './ConfirmModal';
 import { deleteUser } from '../apis/auth';
+import { useAuth } from '../contexts/AuthContext';
 
 const Sidebar = () => {
     const navigate = useNavigate();
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const forceLogout = () => {
-        localStorage.clear();
-        navigate('/login', { replace: true });
+    const { signout, setUserId, setName } = useAuth();
+
+    const handleFullLogout = () => {
+        signout();
+        setUserId(null);
+        setName(null);
     };
 
     const deleteMutation = useMutation({
         mutationFn: deleteUser,
         onSuccess: () => {
         alert('회원 탈퇴가 완료되었습니다.');
-        forceLogout();
+
+        handleFullLogout();
         },
         onError: (error: unknown) => {
         if (axios.isAxiosError(error) && error.response?.status === 401) {
             alert('세션이 만료되었습니다. 다시 로그인해주세요.');
-            forceLogout();
+
+            handleFullLogout();
         } else {
             console.error('탈퇴 실패:', error);
             alert('회원 탈퇴 중 오류가 발생했습니다.');

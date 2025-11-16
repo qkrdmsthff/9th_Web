@@ -31,7 +31,7 @@ const CommentInput: React.FC<CommentInputProps> = ({ lpId }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="flex p-4 border-t border-gray-700 gap-2">
+        <form onSubmit={handleSubmit} className="flex p-4 border-t border-gray-700 gap-2 pl-25 pr-25">
             <input
                 type="text"
                 value={content}

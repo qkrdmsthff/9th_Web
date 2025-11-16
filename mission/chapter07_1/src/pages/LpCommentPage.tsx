@@ -53,7 +53,7 @@ const LpCommentPage = () => {
     return (
         <div className="flex flex-col bg-black h-screen w-full text-white">
             <div className="flex flex-col mt-15 overflow-y-auto p-4 space-y-4 p-10">
-                <div className='flex flex-1 right-0 gap-3'>
+                <div className='flex flex-1 right-0 gap-3 pl-20'>
                     <button className='bg-pink-500 text-black rounded-sm w-22 h-10 font-bold'>
                         오래된순
                     </button>

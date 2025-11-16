@@ -25,7 +25,7 @@ const LpCard: React.FC<LpCardProps> = ({ lp }) => {
                 className="w-full h-full object-cover group-hover:opacity-40 transition-opacity transition-transform duration-300 ease-in-out group-hover:scale-110"/>
 
                 <div className="absolute inset-0 flex flex-col p-2 text-pink-400 opacity-0 translate-y-35 transition-all duration-300 ease-in-out group-hover:opacity-100 group-hover:translate-y-30">
-                    <h3 className="flex left-0"> {lp.title} </h3>
+                    <h3 className="flex left-0 truncate"> {lp.title} </h3>
                     <div className="flex flex-1 w-40 h-10 justify-between">
                         <p className="flex left-0 text-sm"> {uploadTime} </p>
                         <p className="flex text-sm"> ♥ {lp.likes.length} </p>
