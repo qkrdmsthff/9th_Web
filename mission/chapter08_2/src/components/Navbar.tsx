@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import Sidebar from "./Sidebar";
+import useSidebar from '../hooks/useSidebar';
 
 interface NavbarProps {
     isOpen: boolean;
@@ -10,10 +11,11 @@ interface NavbarProps {
     buttonRef: React.RefObject<HTMLButtonElement>;
 }
 
-const Navbar: React.FC<NavbarProps> = ({ isOpen, setIsOpen, sidebarRef, buttonRef }) => {
+const Navbar: React.FC<NavbarProps> = () => {
     const navigate = useNavigate();
     const { signout, accessToken, name } = useAuth();
     const isLogin = !!accessToken;
+    const { isOpen, open, close, toggle } = useSidebar();
 
     const handleSignout = async () => {
         try {
@@ -39,9 +41,8 @@ const Navbar: React.FC<NavbarProps> = ({ isOpen, setIsOpen, sidebarRef, buttonRe
         <nav className='fixed flex z-100 w-full h-16 bg-pink-300 justify-between items-center text-center'>
             <div className="inset-0 flex flex-1 gap-5 pl-5">
                 <button 
-                    ref={buttonRef} 
                     className="hidden md:block text-[30px] font-bold"
-                    onClick={() => setIsOpen((prev) => !prev)} 
+                    onClick={toggle} 
                 >
                     {isOpen ? "♡" : "♥"} 
                 </button>
@@ -51,14 +52,18 @@ const Navbar: React.FC<NavbarProps> = ({ isOpen, setIsOpen, sidebarRef, buttonRe
             </div>
 
             <div 
-                ref={sidebarRef} 
-                className={`fixed top-16 left-0 h-full w-64 bg-pink-200 z-50 transform transition-transform duration-300 ease-in-out hidden md:block ${isOpen ? "translate-x-0" : "-translate-x-full"}`}
+            className={` fixed top-16 left-0 h-full w-64 bg-pink-200 z-50 transform transition-transform duration-300 ease-in-out hidden md:block ${isOpen ? "translate-x-0" : "-translate-x-full"}`}
             >
                 <Sidebar />
             </div>
 
             {isOpen && ( 
-                <div className="fixed inset-0 z-40 hidden md:block"></div>
+                <div 
+                className="fixed inset-0 z-40 hidden md:block"
+                onClick={close}
+                >
+                    
+                </div>
             )}
 
             {!isLogin && 
@@ -76,6 +81,7 @@ const Navbar: React.FC<NavbarProps> = ({ isOpen, setIsOpen, sidebarRef, buttonRe
                     </button>
                 </div>
             }   
+
             {isLogin && 
                 <div className='flex gap-5 font-bold justify-center text-center h-10 pr-5 '>
                     <p className='text-black text-[20px] p-1'>

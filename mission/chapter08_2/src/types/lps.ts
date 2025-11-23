@@ -1,9 +1,4 @@
 export interface LpResponse {
-    title: string;
-    content: string;
-    thumbnail: string;
-    tags: any;
-    published: boolean;
     status : boolean,
     statusCode : number,
     message : string,
