@@ -1,22 +1,30 @@
-import React from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { useSelector, useDispatch } from 'react-redux';
+import Modal from "../components/Modal";
 import { increase, decrease } from "../feature/cartSlice";
 
 interface RootState {
     cart: {
         items: Array<{ id: string; title: string; singer: string; price: string | number; amount: number; img: string }>;
+        amount: number;
+        total: number;
+    };
+    modal: {
+        isOpen: boolean;
     };
 }
 
 const StorePage = () => {
     const { items } = useSelector((state: RootState) => state.cart);
+    const { isOpen } = useSelector((state: RootState) => state.modal);
     const dispatch = useDispatch();
 
     return (
         <div>
             <Navbar />
+            
+            {isOpen && <Modal />} 
 
             <div className="flex flex-col px-6 py-10 max-w-3xl mx-auto">
                 {items.map((item) => (

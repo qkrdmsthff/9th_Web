@@ -1,17 +1,16 @@
-import React from 'react';
 import { useDispatch } from 'react-redux';
-import { clearCart } from '../feature/cartSlice';
+import { openModal } from '../feature/modalSlice';
 
 const Footer = () => {
     const dispatch = useDispatch();
 
     return (
-        <div className='flex justify-between h-15'>
+        <div className='flex justify-between bg-yellow-400 h-15'>
             <button 
-            className='flex flex-1 font-bold text-[20px] text-black items-center justify-center '
-            onClick={() => dispatch(clearCart())}
+                className='flex flex-1 font-bold text-[20px] text-white items-center justify-center '
+                onClick={() => dispatch(openModal())}
             >
-                삭제하기
+                전체 삭제
             </button>
         </div>
     )
