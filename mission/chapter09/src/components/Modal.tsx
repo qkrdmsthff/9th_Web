@@ -1,19 +1,15 @@
-// Modal.tsx (새 파일)
-
-import { useDispatch } from "react-redux";
-import { clearCart } from "../feature/cartSlice";
-import { closeModal } from "../feature/modalSlice";
+import { useCartStore } from "../hooks/useCartStore";
 
 const Modal = () => {
-    const dispatch = useDispatch();
+    const { clearCart, closeModal } = useCartStore();
 
     const handleConfirm = () => {
-        dispatch(clearCart()); 
-        dispatch(closeModal());
+        clearCart(); 
+        closeModal();
     };
 
     const handleCancel = () => {
-        dispatch(closeModal());
+        closeModal();
     };
 
     return (

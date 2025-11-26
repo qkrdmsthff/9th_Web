@@ -1,14 +1,9 @@
 import { FaCartShopping } from 'react-icons/fa6';
-import { useSelector } from 'react-redux';
+import { useCartStore } from '../hooks/useCartStore';
 
-interface RootState {
-    cart: {
-        amount: number;
-    };
-}
 
 const Navbar = () => {
-    const { amount } = useSelector((state: RootState) => state.cart);
+    const amount = useCartStore((state: { amount: any; }) => state.amount);
 
     return (
         <nav className='flex justify-between bg-yellow-400 h-15'>
@@ -17,7 +12,7 @@ const Navbar = () => {
             </div>
             <div className='flex gap-4 text-center items-center font-bold p-4 text-[25px] text-white'>
                 <FaCartShopping style={{ fontSize: '30px', color: 'white' }} />
-                <span>
+                <span className='relative'>
                     <div>
                         {amount}
                     </div>
